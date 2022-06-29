@@ -1,4 +1,4 @@
-import { EncryptionService } from "../../application/ports/outbound/encryption.service";
+import { EncryptionService } from "../../application/ports/outbound";
 
 export class FakeEncryptionService implements EncryptionService {
   compare(hash: string, string: string): boolean {

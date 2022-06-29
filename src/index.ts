@@ -1,14 +1,17 @@
 import express from "express";
-import { AuthController } from "./adapters/inbound/auth.controller";
-import { FakeEncryptionService } from "./adapters/outbound/fake-encryption.service";
-import { FakeUserRepository } from "./adapters/outbound/fake-user.repository";
-import { SignIn } from "./application/use-cases/sign-in";
+
+import { AuthController } from "./adapters/inbound";
+import { FakeEncryptionService, FakeUserRepository } from "./adapters/outbound";
+import { SignIn } from "./application/use-cases";
 
 const app = express();
 const port = 3000;
 
 const authController = new AuthController(
-  new SignIn(new FakeEncryptionService(), new FakeUserRepository())
+  new SignIn({
+    userRepository: new FakeUserRepository(),
+    encryptionService: new FakeEncryptionService(),
+  })
 );
 
 app.get("/auth", authController.signIn);

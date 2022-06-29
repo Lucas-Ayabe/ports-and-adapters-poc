@@ -1,13 +1,20 @@
-import { SignInCommand, SignInUseCase } from "../ports/inbound/sign-in";
-import { EncryptionService } from "../ports/outbound/encryption.service";
-import { UserRepository } from "../ports/outbound/user.repository";
+import { SignInCommand, SignInUseCase } from "../ports/inbound";
+import { UserRepository, EncryptionService } from "../ports/outbound";
 import { InvalidCredentialsError } from "./invalid-credentials.error";
 
+interface SignInProps {
+  encryptionService: EncryptionService;
+  userRepository: UserRepository;
+}
+
 export class SignIn implements SignInUseCase {
-  constructor(
-    private encryptionService: EncryptionService,
-    private userRepository: UserRepository
-  ) {}
+  private encryptionService: EncryptionService;
+  private userRepository: UserRepository;
+
+  constructor({ encryptionService, userRepository }: SignInProps) {
+    this.encryptionService = encryptionService;
+    this.userRepository = userRepository;
+  }
 
   async execute(command: SignInCommand): Promise<string> {
     const user = await this.userRepository.findByEmail(command.email);

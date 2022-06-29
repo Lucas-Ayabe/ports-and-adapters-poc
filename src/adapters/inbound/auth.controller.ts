@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SignInUseCase } from "../../application/ports/inbound/sign-in";
+import { SignInUseCase } from "../../application/ports/inbound";
 
 export class AuthController {
   constructor(private signInUseCase: SignInUseCase) {
