@@ -1,5 +1,5 @@
 import { UserRepository } from "../../application/ports/outbound/user.repository";
-import { User } from "../../domain/user";
+import { User } from "../../application/domain/user";
 
 export class FakeUserRepository implements UserRepository {
   async findByEmail(email: string): Promise<User> {
