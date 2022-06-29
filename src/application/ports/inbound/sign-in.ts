@@ -5,4 +5,6 @@ export interface SignInCommand {
   password: string;
 }
 
-export interface SignInUseCase extends UseCase<SignInCommand, string | false> {}
+export type SignInOutput = string | false;
+
+export interface SignInUseCase extends UseCase<SignInCommand, SignInOutput> {}
